@@ -16,7 +16,7 @@ formulario.addEventListener('submit', async (eve) => {
     if (isNaN(monto.value) || monto.value === "") {
         alert('Por favor, verifíque haber ingresado un número');
     } else {
-        
+
         /* Se evalua que seleccione una divisa */
         if (moneda.value == "") {
             alert('Por favor, seleccione una divisa');
@@ -31,8 +31,10 @@ formulario.addEventListener('submit', async (eve) => {
                 if (!res.ok) {
                     throw "Falló la solicitud";
                 }
+                /* se asigna la respuesta a la variable data */
                 const data = await res.json();
 
+                /* se pinta el calculo realizado */
                 resultado.innerHTML = `<p>Valor actual: $${data[moneda.value].valor}</p><br><p>Valor: ${monto.value / data[moneda.value].valor}</p>`
                 pintaChart(moneda.value);
             } catch (error) {
@@ -47,8 +49,9 @@ formulario.addEventListener('submit', async (eve) => {
     }
 });
 
-
+/* Se define variable como let */
 let grafica;
+
 /* Función que pinta gráfico de la moneda indicada */
 const pintaChart = async (moneda) => {
 
@@ -67,7 +70,7 @@ const pintaChart = async (moneda) => {
     const dataMoneda = arrayResultados.map(item => item.valor);// Formato: 800.60
 
     /* Se destruye la grafica en caso de existir */
-    if(grafica){
+    if (grafica) {
         grafica.destroy();
     }
 
